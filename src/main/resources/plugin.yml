@@ -1,0 +1,23 @@
+main: cc.carm.plugin.regionprotection.Main
+name: RegionProtection
+
+version: ${project.version}
+description: ${project.description}
+website: ${project.url}
+
+authors:
+  - CarmJos
+  - Zimrs
+
+api-version: 1.16
+
+commands:
+  "RegionProtection":
+    aliases:
+      - "rp"
+    description: "区域保护插件的基础指令。"
+
+permissions:
+
+  "RegionProtection.admin":
+    description: "区域保护插件的管理员权限。"
