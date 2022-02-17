@@ -24,7 +24,7 @@ public class RegionListener implements Listener {
 
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event) {
-		if (event.isCancelled()) return; // 事件被其他插件取消
+		if (event.isCancelled() || event.getCause() == PlayerTeleportEvent.TeleportCause.PLUGIN) return; // 事件被其他插件取消
 		Main.debugging("Checking teleport event for " + event.getPlayer().getName());
 
 		Location toLocation = event.getTo();
@@ -71,7 +71,7 @@ public class RegionListener implements Listener {
 
 			LocationMathUtils.withMinDistance(event.getTo(), region, (xz, line) -> {
 				Location location = LocationMathUtils.getLocationAdded(event.getTo(), xz, line, 2);
-				player.teleport(location);
+				player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
 
 				Main.debugging("Teleporting " + player.getName() + " to " + location);
 			});
