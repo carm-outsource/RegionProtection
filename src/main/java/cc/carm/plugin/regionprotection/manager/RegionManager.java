@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.IOException;
@@ -62,11 +63,14 @@ public class RegionManager {
 	}
 
 	@Unmodifiable
-	public @NotNull Set<String> getRegionsIn(@NotNull Location location) {
+	public @NotNull Set<Map.Entry<String, ProtectedRegion>> getRegionsIn(@NotNull Location location) {
 		return getRegions().entrySet().stream()
 				.filter(entry -> entry.getValue().isInArea(location))
-				.map(Map.Entry::getKey)
 				.collect(Collectors.toUnmodifiableSet());
+	}
+
+	public @Nullable Map.Entry<String, ProtectedRegion> getFirstRegionIn(@NotNull Location location) {
+		return getRegionsIn(location).stream().findFirst().orElse(null);
 	}
 
 	public FileConfig getRegionsConfiguration() {

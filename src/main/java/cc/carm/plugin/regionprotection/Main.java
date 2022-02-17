@@ -3,6 +3,7 @@ package cc.carm.plugin.regionprotection;
 import cc.carm.lib.easyplugin.EasyPlugin;
 import cc.carm.lib.easyplugin.i18n.EasyPluginMessageProvider;
 import cc.carm.plugin.regionprotection.configuration.PluginConfig;
+import cc.carm.plugin.regionprotection.listener.RegionListener;
 import cc.carm.plugin.regionprotection.manager.ConfigManager;
 import cc.carm.plugin.regionprotection.manager.RegionManager;
 
@@ -37,10 +38,11 @@ public class Main extends EasyPlugin {
 			return false;
 		}
 
+		log("注册监听器...");
+		regListener(new RegionListener());
 
 		return true;
 	}
-
 
 	@Override
 	public boolean isDebugging() {
@@ -51,8 +53,12 @@ public class Main extends EasyPlugin {
 		return instance;
 	}
 
-	public static ConfigManager getConfigManager() {
+	protected static ConfigManager getConfigManager() {
 		return configManager;
+	}
+
+	protected static RegionManager getRegionManager() {
+		return regionManager;
 	}
 
 	public static void info(String... messages) {

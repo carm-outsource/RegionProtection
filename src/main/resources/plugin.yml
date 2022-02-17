@@ -21,3 +21,4 @@ permissions:
 
   "RegionProtection.admin":
     description: "区域保护插件的管理员权限。"
+    default: op
