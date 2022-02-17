@@ -4,6 +4,8 @@ import cc.carm.lib.easyplugin.EasyPlugin;
 import cc.carm.lib.easyplugin.i18n.EasyPluginMessageProvider;
 import cc.carm.plugin.regionprotection.command.RegionProtectCommands;
 import cc.carm.plugin.regionprotection.configuration.PluginConfig;
+import cc.carm.plugin.regionprotection.configuration.values.DataBlockLocation;
+import cc.carm.plugin.regionprotection.configuration.values.ProtectedRegion;
 import cc.carm.plugin.regionprotection.listener.RegionListener;
 import cc.carm.plugin.regionprotection.manager.ConfigManager;
 import cc.carm.plugin.regionprotection.manager.PlayerManager;
@@ -49,6 +51,13 @@ public class Main extends EasyPlugin {
 
 		log("注册指令...");
 		registerCommand("RegionProtection", new RegionProtectCommands());
+
+		//测试
+		RegionProtection.getRegionManager().setRegion("test", new ProtectedRegion(
+				"world",
+				new DataBlockLocation(-16, 50, -16),
+				new DataBlockLocation(16, 80, 16)
+		));
 
 		return true;
 	}

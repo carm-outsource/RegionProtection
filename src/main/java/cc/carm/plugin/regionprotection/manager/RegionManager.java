@@ -51,7 +51,7 @@ public class RegionManager {
 		return ImmutableMap.copyOf(this.regions);
 	}
 
-	public void addRegion(@NotNull String name, @NotNull ProtectedRegion area) {
+	public void setRegion(@NotNull String name, @NotNull ProtectedRegion area) {
 		regions.put(name, area);
 		getRegionsConfiguration().getConfig().set("regions." + name, area);
 		saveConfig();
