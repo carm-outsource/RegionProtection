@@ -21,25 +21,25 @@ import static cc.carm.plugin.regionprotection.RegionProtection.getPlayerManager;
 import static cc.carm.plugin.regionprotection.RegionProtection.getRegionManager;
 
 public class RegionListener implements Listener {
-
-	@EventHandler
-	public void onTeleport(PlayerTeleportEvent event) {
-		if (event.isCancelled() || event.getCause() == PlayerTeleportEvent.TeleportCause.PLUGIN) return; // 事件被其他插件取消
-		Main.debugging("Checking teleport event for " + event.getPlayer().getName());
-
-		Location toLocation = event.getTo();
-		if (toLocation == null) return; // 无处可去 ~
-
-		Player player = event.getPlayer();
-		if (getPlayerManager().isPermitted(player)) return; // 玩家已经通过授权或已满足条件
-
-		Map.Entry<String, ProtectedRegion> regionIn = getRegionManager().getFirstRegionIn(toLocation);
-		if (regionIn != null) {
-			event.setCancelled(true); //阻止传送
-			PluginConfig.Sounds.NOT_PERMITTED.play(player);
-			PluginMessages.NOT_PERMITTED.send(player, new Object[]{regionIn.getKey()});
-		}
-	}
+//
+//	@EventHandler
+//	public void onTeleport(PlayerTeleportEvent event) {
+//		if (event.isCancelled() || event.getCause() == PlayerTeleportEvent.TeleportCause.PLUGIN) return; // 事件被其他插件取消
+//		Main.debugging("Checking teleport event for " + event.getPlayer().getName());
+//
+//		Location toLocation = event.getTo();
+//		if (toLocation == null) return; // 无处可去 ~
+//
+//		Player player = event.getPlayer();
+//		if (getPlayerManager().isPermitted(player)) return; // 玩家已经通过授权或已满足条件
+//
+//		Map.Entry<String, ProtectedRegion> regionIn = getRegionManager().getFirstRegionIn(toLocation);
+//		if (regionIn != null) {
+//			event.setCancelled(true); //阻止传送
+//			PluginConfig.Sounds.NOT_PERMITTED.play(player);
+//			PluginMessages.NOT_PERMITTED.send(player, new Object[]{regionIn.getKey()});
+//		}
+//	}
 
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
@@ -65,8 +65,7 @@ public class RegionListener implements Listener {
 		PluginConfig.Sounds.NOT_PERMITTED.play(player);
 		PluginMessages.NOT_PERMITTED.send(player, new Object[]{regionName});
 
-		event.setCancelled(true);
-
+		event.setTo(event.getFrom());
 
 		LocationMathUtils.withMinDistance(event.getTo(), region, (xz, line) -> {
 			if (getPlayerManager().isTriedTimesExceeded(player.getUniqueId())) {
