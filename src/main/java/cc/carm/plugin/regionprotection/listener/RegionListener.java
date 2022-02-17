@@ -66,27 +66,26 @@ public class RegionListener implements Listener {
 		PluginMessages.NOT_PERMITTED.send(player, new Object[]{regionName});
 
 		event.setCancelled(true);
-		if (getPlayerManager().isTriedTimesExceeded(player.getUniqueId())) {
-			// 尝试了很多次也没把他弹出去，直接传送出去
 
-			LocationMathUtils.withMinDistance(event.getTo(), region, (xz, line) -> {
+
+		LocationMathUtils.withMinDistance(event.getTo(), region, (xz, line) -> {
+			if (getPlayerManager().isTriedTimesExceeded(player.getUniqueId())) {
+				// 尝试了很多次也没把他弹出去，直接传送出去
+
 				Location location = LocationMathUtils.getLocationAdded(event.getTo(), xz, line, 2);
 				player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
 
 				Main.debugging("Teleporting " + player.getName() + " to " + location);
-			});
 
-		} else {
-			// 尝试把玩家弹出区域
-			Vector v = new Vector(
-					toLocation.getX() - region.getCenterX(),
-					1,
-					toLocation.getZ() - region.getCenterZ()
-			);
-			player.setVelocity(v.normalize());
-			getPlayerManager().addTriedTimes(player.getUniqueId()); // 添加一次尝试次数
-			Main.debugging("Add velocity " + v + " to " + player.getName());
-		}
+			} else {
+				// 尝试把玩家弹出区域
+				Vector v = xz ? new Vector(2 * (line > 0 ? 1 : -1), 1, 0) : new Vector(0, 1, 2 * (line > 0 ? 1 : -1));
+				player.setVelocity(v);
+				getPlayerManager().addTriedTimes(player.getUniqueId()); // 添加一次尝试次数
+				Main.debugging("Add velocity " + v + " to " + player.getName());
+			}
+
+		});
 
 
 	}
