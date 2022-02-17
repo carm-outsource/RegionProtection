@@ -50,7 +50,6 @@ public class RegionListener implements Listener {
 
 		Player player = event.getPlayer();
 		if (!getPlayerManager().shouldCheck(player.getUniqueId())) return; // 还在检查冷却中
-		Main.debugging("Checking move event for " + event.getPlayer().getName());
 		getPlayerManager().updateCheckTime(player.getUniqueId());
 		if (getPlayerManager().isPermitted(player)) return; // 玩家已经通过授权或已满足条件
 
@@ -108,7 +107,7 @@ public class RegionListener implements Listener {
 			Main.debugging("Player " + event.getPlayer().getName() + " not in any regions.");
 			return;
 		}
-		
+
 		event.setCancelled(true);
 		PluginConfig.Sounds.NOT_PERMITTED.play(player);
 		PluginMessages.NO_BUCKET.send(player, new Object[]{regionIn.getKey()});
