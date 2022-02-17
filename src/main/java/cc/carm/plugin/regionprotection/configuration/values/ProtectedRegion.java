@@ -57,6 +57,14 @@ public class ProtectedRegion implements ConfigurationSerializable {
 		this.pos2 = pos2;
 	}
 
+	public double getCenterX() {
+		return ((double) Math.max(pos1.getX(), pos2.getX()) - (double) Math.min(pos1.getX(), pos2.getX())) / 2;
+	}
+
+	public double getCenterZ() {
+		return ((double) Math.max(pos1.getZ(), pos2.getZ()) - (double) Math.min(pos1.getZ(), pos2.getZ())) / 2;
+	}
+
 	public boolean isInArea(Location location) {
 		return (getWorld() == null || (location.getWorld() != null && location.getWorld().getName().equals(getWorld())))
 				&& isNumberInRange(location.getX(), getPos1().getX(), getPos2().getX())

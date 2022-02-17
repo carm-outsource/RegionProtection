@@ -42,6 +42,7 @@ public class RegionManager {
 			if (region != null) regions.put(regionName, region);
 		}
 
+		Main.debugging("Successfully loaded " + regions.size() + " regions.");
 		this.regions = regions;
 	}
 
@@ -52,12 +53,14 @@ public class RegionManager {
 	}
 
 	public void setRegion(@NotNull String name, @NotNull ProtectedRegion area) {
+		Main.debugging("Adding region [" + name + "] -> " + area);
 		regions.put(name, area);
 		getRegionsConfiguration().getConfig().set("regions." + name, area);
 		saveConfig();
 	}
 
 	public void removeRegion(@NotNull String name) {
+		Main.debugging("Removing region [" + name + "]");
 		regions.remove(name);
 		getRegionsConfiguration().getConfig().set("regions." + name, null);
 	}

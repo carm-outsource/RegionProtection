@@ -56,7 +56,7 @@ public class Main extends EasyPlugin {
 		RegionProtection.getRegionManager().setRegion("test", new ProtectedRegion(
 				"world",
 				new DataBlockLocation(-16, 50, -16),
-				new DataBlockLocation(16, 80, 16)
+				new DataBlockLocation(16, 60, 16)
 		));
 
 		return true;

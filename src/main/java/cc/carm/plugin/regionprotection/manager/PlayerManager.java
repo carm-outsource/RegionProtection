@@ -23,10 +23,6 @@ public class PlayerManager {
 	public long getPlayMinutes(Player player) {
 		return player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 	}
-	
-	public void rejectPlayer() {
-
-	}
 
 	public void addTriedTimes(UUID uuid) {
 		if (triedTimes.containsKey(uuid)) {
@@ -45,7 +41,7 @@ public class PlayerManager {
 	}
 
 	public boolean shouldCheck(UUID uuid) {
-		return !checkInterval.containsKey(uuid) || System.currentTimeMillis() - checkInterval.get(uuid) >= 1000;
+		return !checkInterval.containsKey(uuid) || System.currentTimeMillis() - checkInterval.get(uuid) >= 500; // 0.5s
 	}
 
 	public void updateCheckTime(UUID uuid) {
