@@ -2,9 +2,11 @@ package cc.carm.plugin.regionprotection;
 
 import cc.carm.lib.easyplugin.EasyPlugin;
 import cc.carm.lib.easyplugin.i18n.EasyPluginMessageProvider;
+import cc.carm.plugin.regionprotection.command.RegionProtectCommands;
 import cc.carm.plugin.regionprotection.configuration.PluginConfig;
 import cc.carm.plugin.regionprotection.listener.RegionListener;
 import cc.carm.plugin.regionprotection.manager.ConfigManager;
+import cc.carm.plugin.regionprotection.manager.PlayerManager;
 import cc.carm.plugin.regionprotection.manager.RegionManager;
 
 public class Main extends EasyPlugin {
@@ -14,8 +16,9 @@ public class Main extends EasyPlugin {
 	}
 
 	private static Main instance;
-	private static ConfigManager configManager;
-	private static RegionManager regionManager;
+	protected static ConfigManager configManager;
+	protected static RegionManager regionManager;
+	protected static PlayerManager playerManager;
 
 	@Override
 	protected void load() {
@@ -41,6 +44,9 @@ public class Main extends EasyPlugin {
 		log("注册监听器...");
 		regListener(new RegionListener());
 
+		log("注册指令...");
+		registerCommand("RegionProtection", new RegionProtectCommands());
+
 		return true;
 	}
 
@@ -51,14 +57,6 @@ public class Main extends EasyPlugin {
 
 	public static Main getInstance() {
 		return instance;
-	}
-
-	protected static ConfigManager getConfigManager() {
-		return configManager;
-	}
-
-	protected static RegionManager getRegionManager() {
-		return regionManager;
 	}
 
 	public static void info(String... messages) {

@@ -13,9 +13,12 @@ api-version: 1.16
 
 commands:
   "RegionProtection":
+    permission: "RegionProtection.admin"
     aliases:
+      - "RegionProtect"
       - "rp"
     description: "区域保护插件的基础指令。"
+    usage: "/RegionProtection help"
 
 permissions:
 
