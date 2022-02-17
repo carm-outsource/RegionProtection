@@ -5,7 +5,11 @@ version: ${project.version}
 
 debug: false
 
-sounds:
-  not-permitted: ENTITY_ITEM_PICKUP # 未经允许进入区域时播放的声音
+# 用于检测玩家是否为“已授权”状态的权限
+permission: "RegionProtection.override"
 
-regions:
+# 游玩时间，超过该时间的玩家将可以进入区域，单位：分钟
+play-time: 1400 # 24 hours
+
+sounds:
+  not-permitted: ENTITY_VILLAGER_NO # 进入未经允许的区域时播放的声音

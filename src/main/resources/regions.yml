@@ -1,0 +1,3 @@
+regions:
+  "id":
+    ==: "cc.carm.config.MapCubeArea"
