@@ -24,7 +24,8 @@ public class RegionListener implements Listener {
 
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event) {
-//		if (event.isCancelled()) return; // 事件被其他插件取消
+		if (event.isCancelled()) return; // 事件被其他插件取消
+		Main.debugging("Checking teleport event for " + event.getPlayer().getName());
 
 		Location toLocation = event.getTo();
 		if (toLocation == null) return; // 无处可去 ~
@@ -42,14 +43,14 @@ public class RegionListener implements Listener {
 
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
-//		if (event.isCancelled()) return; // 事件被其他插件取消
+		if (event.isCancelled()) return; // 事件被其他插件取消
 
 		Location toLocation = event.getTo();
 		if (toLocation == null) return; // 无处可去 ~
 
 		Player player = event.getPlayer();
 		if (!getPlayerManager().shouldCheck(player.getUniqueId())) return; // 还在检查冷却中
-
+		Main.debugging("Checking move event for " + event.getPlayer().getName());
 		getPlayerManager().updateCheckTime(player.getUniqueId());
 		if (getPlayerManager().isPermitted(player)) return; // 玩家已经通过授权或已满足条件
 
@@ -97,14 +98,20 @@ public class RegionListener implements Listener {
 		Main.debugging("Checking bucket empty event for " + event.getPlayer().getName());
 		Location toLocation = event.getBlock().getLocation();
 		Player player = event.getPlayer();
-		if (getPlayerManager().isPermitted(player)) return; // 玩家已经通过授权或已满足条件
+		if (getPlayerManager().isPermitted(player)) {
+			Main.debugging("Player " + event.getPlayer().getName() + " has been permitted.");
+			return; // 玩家已经通过授权或已满足条件
+		}
 
 		Map.Entry<String, ProtectedRegion> regionIn = getRegionManager().getFirstRegionIn(toLocation);
-		if (regionIn != null) {
-			event.setCancelled(true);
-			PluginConfig.Sounds.NOT_PERMITTED.play(player);
-			PluginMessages.NO_BUCKET.send(player, new Object[]{regionIn.getKey()});
+		if (regionIn == null) {
+			Main.debugging("Player " + event.getPlayer().getName() + " not in any regions.");
+			return;
 		}
+		
+		event.setCancelled(true);
+		PluginConfig.Sounds.NOT_PERMITTED.play(player);
+		PluginMessages.NO_BUCKET.send(player, new Object[]{regionIn.getKey()});
 	}
 
 	@EventHandler

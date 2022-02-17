@@ -15,7 +15,7 @@ public class PluginConfig {
 	);
 
 	public static final ConfigValue<Long> PLAY_TIME = new ConfigValue<>(
-			"play-time", Long.class, 86400L
+			"play-time", Long.class, 1440L
 	);
 
 
