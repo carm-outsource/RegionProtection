@@ -18,9 +18,8 @@ import java.util.stream.Collectors;
 
 public class RegionManager {
 
-
 	private FileConfig regionsConfiguration;
-	Map<String, ProtectedRegion> regions = new HashMap<>();
+	private Map<String, ProtectedRegion> regions = new HashMap<>();
 
 	public boolean initConfiguration() {
 		try {
@@ -32,9 +31,19 @@ public class RegionManager {
 		}
 	}
 
-	public void loadRegions() {
+	public int reload() {
+		try {
+			getRegionsConfiguration().reload();
+			return loadRegions();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public int loadRegions() {
 		ConfigurationSection section = getRegionsConfiguration().getConfig().getConfigurationSection("regions");
-		if (section == null) return;
+		if (section == null) return 0;
 		Map<String, ProtectedRegion> regions = new HashMap<>();
 
 		for (String regionName : section.getKeys(false)) {
@@ -44,6 +53,7 @@ public class RegionManager {
 
 		Main.debugging("Successfully loaded " + regions.size() + " regions.");
 		this.regions = regions;
+		return regions.size();
 	}
 
 
@@ -76,7 +86,7 @@ public class RegionManager {
 		return getRegionsIn(location).stream().findFirst().orElse(null);
 	}
 
-	public FileConfig getRegionsConfiguration() {
+	protected FileConfig getRegionsConfiguration() {
 		return regionsConfiguration;
 	}
 
