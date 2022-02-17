@@ -58,6 +58,13 @@ public class LocationMathUtils {
 			location.setZ(afterCoordinate);
 		}
 		
+		if (location.getWorld() == null) {
+			return location;
+		}
+
+		double y = location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());
+		location.setY(y);
+
 		return location;
 	}
 
