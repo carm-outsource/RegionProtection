@@ -34,12 +34,15 @@ public class Main extends EasyPlugin {
 			return false;
 		}
 
-		log("加载区域配置文件...");
+		log("加载区域管理器...");
 		Main.regionManager = new RegionManager();
 		if (!Main.regionManager.initConfiguration()) {
 			error("区域配置文件初始化失败，请检查文件权限。");
 			return false;
 		}
+
+		log("加载玩家管理器...");
+		Main.playerManager = new PlayerManager();
 
 		log("注册监听器...");
 		regListener(new RegionListener());
