@@ -1,5 +1,6 @@
 package cc.carm.plugin.regionprotection.manager;
 
+import cc.carm.plugin.regionprotection.Main;
 import cc.carm.plugin.regionprotection.configuration.PluginConfig;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -15,12 +16,18 @@ public class PlayerManager {
 	public Map<UUID, Long> checkInterval = new HashMap<>();
 
 	public boolean isPermitted(Player player) {
+		Main.debugging("Checking permission for player " + player.getName(),
+				"- RegionProtection.admin: " + player.hasPermission("RegionProtection.admin"),
+				"- " + PluginConfig.PERMISSION.get() + ": " + player.hasPermission(PluginConfig.PERMISSION.get()),
+				"- CURRENT PLAY TIME :" + getPlayMinutes(player) + "/" + PluginConfig.PLAY_TIME.get()
+		);
+
 		return player.hasPermission("RegionProtection.admin")
 				|| player.hasPermission(PluginConfig.PERMISSION.get())
 				|| getPlayMinutes(player) >= PluginConfig.PLAY_TIME.get();
 	}
 
-	public long getPlayMinutes(Player player) {
+	public int getPlayMinutes(Player player) {
 		return player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 	}
 

@@ -14,8 +14,8 @@ public class PluginConfig {
 			"permission", String.class, "RegionProtection.override"
 	);
 
-	public static final ConfigValue<Long> PLAY_TIME = new ConfigValue<>(
-			"play-time", Long.class, 1440L
+	public static final ConfigValue<Integer> PLAY_TIME = new ConfigValue<>(
+			"play-time", Integer.class, 1440
 	);
 
 
