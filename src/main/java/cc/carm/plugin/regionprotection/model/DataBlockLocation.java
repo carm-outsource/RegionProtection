@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @SerializableAs("cc.carm.config.DataBlockLocation")
 public class DataBlockLocation implements ConfigurationSerializable {
@@ -74,6 +75,19 @@ public class DataBlockLocation implements ConfigurationSerializable {
 
     public Location getBukkitLocation(World world) {
         return new Location(world, getX(), getY(), getZ());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataBlockLocation location = (DataBlockLocation) o;
+        return x == location.x && y == location.y && z == location.z;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z);
     }
 
     @Override

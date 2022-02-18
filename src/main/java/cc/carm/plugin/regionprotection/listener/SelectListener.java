@@ -43,8 +43,10 @@ public class SelectListener implements Listener {
         }
         DataBlockLocation location = new DataBlockLocation(block.getLocation());
         if (isPos1) {
+            if (region.getPos1() != null && region.getPos1().equals(location)) return;
             region.setPos1(location);
         } else {
+            if (region.getPos2() != null && region.getPos2().equals(location)) return;
             region.setPos2(location);
         }
 
