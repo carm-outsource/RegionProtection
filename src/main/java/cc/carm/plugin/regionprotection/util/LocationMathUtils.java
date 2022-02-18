@@ -57,13 +57,13 @@ public class LocationMathUtils {
 		} else {
 			location.setZ(afterCoordinate);
 		}
-		
+
 		if (location.getWorld() == null) {
 			return location;
 		}
 
 		double y = location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());
-		location.setY(y);
+		location.setY(y + 2);
 
 		return location;
 	}

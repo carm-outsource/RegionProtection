@@ -67,9 +67,9 @@ public class ProtectedRegion implements ConfigurationSerializable {
 
 	public boolean isInArea(Location location) {
 		return (getWorld() == null || (location.getWorld() != null && location.getWorld().getName().equalsIgnoreCase(getWorld())))
-				&& isNumberInRange(location.getX(), getPos1().getX(), getPos2().getX())
-				&& isNumberInRange(location.getY(), getPos1().getY(), getPos2().getY())
-				&& isNumberInRange(location.getZ(), getPos1().getZ(), getPos2().getZ());
+				&& isNumberInRange((int) location.getX(), getPos1().getX(), getPos2().getX())
+				&& isNumberInRange((int) location.getY(), getPos1().getY(), getPos2().getY())
+				&& isNumberInRange((int) location.getZ(), getPos1().getZ(), getPos2().getZ());
 	}
 
 	public boolean isInArea(Player player) {
