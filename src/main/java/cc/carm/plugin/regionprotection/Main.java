@@ -62,6 +62,7 @@ public class Main extends EasyPlugin {
             error("区域配置文件初始化失败，请检查文件权限。");
             return false;
         }
+        Main.regionManager.loadRegions();
 
         log("加载玩家管理器...");
         Main.playerManager = new PlayerManager();

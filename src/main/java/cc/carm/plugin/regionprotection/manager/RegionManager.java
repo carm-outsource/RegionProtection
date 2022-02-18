@@ -6,6 +6,7 @@ import cc.carm.plugin.regionprotection.model.ProtectedRegion;
 import com.google.common.collect.ImmutableMap;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -23,8 +24,7 @@ public class RegionManager {
 
     public boolean initConfiguration() {
         try {
-            regionsConfiguration = new FileConfig(Main.getInstance(), "regions.yml");
-            loadRegions();
+            this.regionsConfiguration = new FileConfig(Main.getInstance(), "regions.yml");
             return true;
         } catch (Exception ex) {
             return false;
@@ -33,7 +33,7 @@ public class RegionManager {
 
     public int reload() {
         try {
-            getRegionsConfiguration().reload();
+            this.regionsConfiguration.reload();
             return loadRegions();
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class RegionManager {
     }
 
     public int loadRegions() {
-        ConfigurationSection section = getRegionsConfiguration().getConfig().getConfigurationSection("regions");
+        ConfigurationSection section = getRegionsConfiguration().getConfigurationSection("regions");
         if (section == null) return 0;
         Map<String, ProtectedRegion> regions = new HashMap<>();
 
@@ -65,14 +65,15 @@ public class RegionManager {
     public void setRegion(@NotNull String name, @NotNull ProtectedRegion area) {
         Main.debugging("Adding region [" + name + "] -> " + area);
         regions.put(name, area);
-        getRegionsConfiguration().getConfig().set("regions." + name, area);
+        getRegionsConfiguration().set("regions." + name, area);
         saveConfig();
     }
 
     public void removeRegion(@NotNull String name) {
         Main.debugging("Removing region [" + name + "]");
         regions.remove(name);
-        getRegionsConfiguration().getConfig().set("regions." + name, null);
+        getRegionsConfiguration().set("regions." + name, null);
+        saveConfig();
     }
 
     @Unmodifiable
@@ -86,13 +87,14 @@ public class RegionManager {
         return getRegionsIn(location).stream().findFirst().orElse(null);
     }
 
-    protected FileConfig getRegionsConfiguration() {
-        return regionsConfiguration;
+    protected FileConfiguration getRegionsConfiguration() {
+        return this.regionsConfiguration.getConfig();
     }
 
     public void saveConfig() {
         try {
-            getRegionsConfiguration().save();
+            Main.debugging("Try saving regions.yml");
+            this.regionsConfiguration.save();
         } catch (IOException e) {
             e.printStackTrace();
         }
