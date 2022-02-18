@@ -24,12 +24,12 @@ public class SelectingRegion {
         return world;
     }
 
-    public void setWorld(@Nullable String world) {
+    public void setWorld(@NotNull String world) {
         this.world = world;
     }
 
-    public void setWorld(@Nullable World world) {
-        setWorld(world == null ? null : world.getName());
+    public void setWorld(@NotNull World world) {
+        setWorld(world.getName());
     }
 
     public @Nullable DataBlockLocation getPos1() {
