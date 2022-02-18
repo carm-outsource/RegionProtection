@@ -1,16 +1,17 @@
 package cc.carm.plugin.regionprotection.manager;
 
-import cc.carm.lib.easyplugin.configuration.file.FileConfig;
 import cc.carm.plugin.regionprotection.Main;
 import cc.carm.plugin.regionprotection.model.ProtectedRegion;
 import com.google.common.collect.ImmutableMap;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +20,18 @@ import java.util.stream.Collectors;
 
 public class RegionManager {
 
-    private FileConfig regionsConfiguration;
+    private File configFile;
+    private FileConfiguration configuration;
     private Map<String, ProtectedRegion> regions = new HashMap<>();
 
     public boolean initConfiguration() {
         try {
-            this.regionsConfiguration = new FileConfig(Main.getInstance(), "regions.yml");
+            this.configFile = new File(Main.getInstance().getDataFolder(), "regions.yml");
+            if (!this.configFile.exists()) {
+                Main.getInstance().saveResource("regions.yml", false);
+            }
+
+            this.configuration = YamlConfiguration.loadConfiguration(this.configFile);
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -33,13 +40,8 @@ public class RegionManager {
     }
 
     public int reload() {
-        try {
-            this.regionsConfiguration.reload();
-            return loadRegions();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
+        initConfiguration();
+        return loadRegions();
     }
 
     public int loadRegions() {
@@ -89,13 +91,13 @@ public class RegionManager {
     }
 
     protected FileConfiguration getRegionsConfiguration() {
-        return this.regionsConfiguration.getConfig();
+        return this.configuration;
     }
 
     public void saveConfig() {
         try {
             Main.debugging("Try saving regions.yml");
-            this.regionsConfiguration.save();
+            this.configuration.save(this.configFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
