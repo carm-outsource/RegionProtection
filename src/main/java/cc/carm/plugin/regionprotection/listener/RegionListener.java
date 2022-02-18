@@ -65,8 +65,6 @@ public class RegionListener implements Listener {
 		PluginConfig.Sounds.NOT_PERMITTED.play(player);
 		PluginMessages.NOT_PERMITTED.send(player, new Object[]{regionName});
 
-		event.setTo(event.getFrom());
-
 		LocationMathUtils.withMinDistance(event.getTo(), region, (xz, line) -> {
 			if (getPlayerManager().isTriedTimesExceeded(player.getUniqueId())) {
 				// 尝试了很多次也没把他弹出去，直接传送出去
