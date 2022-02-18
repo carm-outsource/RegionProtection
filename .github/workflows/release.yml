@@ -1,4 +1,4 @@
-name: Deploy & Upload
+name: Release & Upload
 
 on:
   release:
