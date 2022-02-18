@@ -27,6 +27,7 @@ public class RegionManager {
             this.regionsConfiguration = new FileConfig(Main.getInstance(), "regions.yml");
             return true;
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
