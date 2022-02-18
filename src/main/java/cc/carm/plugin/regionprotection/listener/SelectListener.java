@@ -32,6 +32,8 @@ public class SelectListener implements Listener {
         PlayerManager manager = RegionProtection.getPlayerManager();
         if (!manager.isSelecting(player)) return;
 
+        event.setCancelled(true);
+
         SelectingRegion region = manager.getSelectingRegion(player);
         if (!block.getWorld().getName().equals(region.getWorld())) {
             if ((isPos1 && region.getPos2() == null) || (!isPos1 && region.getPos1() == null)) {

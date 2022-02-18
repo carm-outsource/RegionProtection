@@ -74,13 +74,6 @@ public class Main extends EasyPlugin {
         log("注册指令...");
         registerCommand("RegionProtection", new RegionProtectCommands());
 
-        //测试
-        RegionProtection.getRegionManager().setRegion("test", new ProtectedRegion(
-                "world",
-                new DataBlockLocation(-16, 50, -16),
-                new DataBlockLocation(16, 60, 16)
-        ));
-
         return true;
     }
 
