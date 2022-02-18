@@ -18,22 +18,20 @@ public class SelectListener implements Listener {
 
     @EventHandler
     public void onClicking(PlayerInteractEvent event) {
-        if (event.getAction() != Action.LEFT_CLICK_BLOCK || event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (event.getAction() != Action.LEFT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Block block = event.getClickedBlock();
-        System.out.println("s0");
         if (block == null) return;
         boolean isPos1 = event.getAction() == Action.LEFT_CLICK_BLOCK;
-        System.out.println("s1");
+
         Player player = event.getPlayer();
         if (!player.hasPermission("RegionProtection.admin")) return;
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType() != Material.GOLDEN_HOE) return;
-        System.out.println("s2");
 
         PlayerManager manager = RegionProtection.getPlayerManager();
         if (!manager.isSelecting(player)) return;
-        System.out.println("s3");
+
         SelectingRegion region = manager.getSelectingRegion(player);
         if (!block.getWorld().getName().equals(region.getWorld())) {
             if ((isPos1 && region.getPos2() == null) || (!isPos1 && region.getPos1() == null)) {
