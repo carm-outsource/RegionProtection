@@ -40,16 +40,16 @@ public class LocationMathUtils {
 
 	}
 
-	public static int getCoordinateAdded(int distance, int line) {
+	public static double getCoordinateAdded(int distance, int line) {
 		if (line < 0) {
-			return line - distance;
+			return line - distance - 0.5;
 		} else {
-			return line + distance;
+			return line + distance + 0.5;
 		}
 	}
 
 	public static Location getLocationAdded(Location base, boolean xz, int line, int distance) {
-		int afterCoordinate = getCoordinateAdded(distance, line);
+		double afterCoordinate = getCoordinateAdded(distance, line);
 
 		Location location = base.clone();
 		if (xz) {
