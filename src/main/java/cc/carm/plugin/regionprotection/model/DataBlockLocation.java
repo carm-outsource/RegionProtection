@@ -1,4 +1,4 @@
-package cc.carm.plugin.regionprotection.configuration.values;
+package cc.carm.plugin.regionprotection.model;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.util.NumberConversions;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,20 @@ public class DataBlockLocation implements ConfigurationSerializable {
         return new DataBlockLocation(NumberConversions.toInt(args.get("x")),
                 NumberConversions.toInt(args.get("y")),
                 NumberConversions.toInt(args.get("z")));
+    }
+
+    public static DataBlockLocation deserializeText(String s) {
+        if (s == null || !s.contains(";")) return null;
+        String[] args = StringUtils.split(s, ";");
+        if (args.length != 3) return null;
+        try {
+            int x = NumberConversions.toInt(args[0]);
+            int y = NumberConversions.toInt(args[1]);
+            int z = NumberConversions.toInt(args[2]);
+            return new DataBlockLocation(x, y, z);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     public int getX() {
@@ -62,7 +77,7 @@ public class DataBlockLocation implements ConfigurationSerializable {
     }
 
     @Override
-    public Map<String, Object> serialize() {
+    public @NotNull Map<String, Object> serialize() {
         Map<String, Object> data = new HashMap<>();
 
         data.put("x", this.x);
@@ -77,22 +92,7 @@ public class DataBlockLocation implements ConfigurationSerializable {
         return x + " " + y + " " + z;
     }
 
-
     public String serializeToText() {
         return getX() + ";" + getY() + ";" + getZ();
-    }
-
-    public static DataBlockLocation deserializeText(String s) {
-        if (s == null || !s.contains(";")) return null;
-        String[] args = StringUtils.split(s, ";");
-        if (args.length != 3) return null;
-        try {
-            int x = NumberConversions.toInt(args[0]);
-            int y = NumberConversions.toInt(args[1]);
-            int z = NumberConversions.toInt(args[2]);
-            return new DataBlockLocation(x, y, z);
-        } catch (Exception ex) {
-            return null;
-        }
     }
 }

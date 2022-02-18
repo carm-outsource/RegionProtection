@@ -4,83 +4,88 @@ import cc.carm.lib.easyplugin.EasyPlugin;
 import cc.carm.lib.easyplugin.i18n.EasyPluginMessageProvider;
 import cc.carm.plugin.regionprotection.command.RegionProtectCommands;
 import cc.carm.plugin.regionprotection.configuration.PluginConfig;
-import cc.carm.plugin.regionprotection.configuration.values.DataBlockLocation;
-import cc.carm.plugin.regionprotection.configuration.values.ProtectedRegion;
 import cc.carm.plugin.regionprotection.listener.RegionListener;
+import cc.carm.plugin.regionprotection.listener.SelectListener;
 import cc.carm.plugin.regionprotection.manager.ConfigManager;
 import cc.carm.plugin.regionprotection.manager.PlayerManager;
 import cc.carm.plugin.regionprotection.manager.RegionManager;
+import cc.carm.plugin.regionprotection.model.DataBlockLocation;
+import cc.carm.plugin.regionprotection.model.ProtectedRegion;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 public class Main extends EasyPlugin {
 
-	public Main() {
-		super(new EasyPluginMessageProvider.zh_CN());
-	}
+    protected static ConfigManager configManager;
+    protected static RegionManager regionManager;
+    protected static PlayerManager playerManager;
+    private static Main instance;
 
-	private static Main instance;
-	protected static ConfigManager configManager;
-	protected static RegionManager regionManager;
-	protected static PlayerManager playerManager;
+    public Main() {
+        super(new EasyPluginMessageProvider.zh_CN());
+    }
 
-	@Override
-	protected void load() {
-		instance = this;
-	}
+    public static Main getInstance() {
+        return instance;
+    }
 
-	@Override
-	public boolean initialize() {
-		log("加载插件配置文件...");
-		Main.configManager = new ConfigManager();
-		if (!Main.configManager.initConfig()) {
-			error("插件配置文件初始化失败，请检查文件权限。");
-			return false;
-		}
+    public static void info(String... messages) {
+        getInstance().log(messages);
+    }
 
-		log("加载区域管理器...");
-		Main.regionManager = new RegionManager();
-		if (!Main.regionManager.initConfiguration()) {
-			error("区域配置文件初始化失败，请检查文件权限。");
-			return false;
-		}
+    public static void severe(String... messages) {
+        getInstance().error(messages);
+    }
 
-		log("加载玩家管理器...");
-		Main.playerManager = new PlayerManager();
+    public static void debugging(String... messages) {
+        getInstance().debug(messages);
+    }
 
-		log("注册监听器...");
-		regListener(new RegionListener());
+    @Override
+    protected void load() {
+        instance = this;
+    }
 
-		log("注册指令...");
-		registerCommand("RegionProtection", new RegionProtectCommands());
+    @Override
+    public boolean initialize() {
+        log("加载插件配置文件...");
+        ConfigurationSerialization.registerClass(DataBlockLocation.class);
+        ConfigurationSerialization.registerClass(ProtectedRegion.class);
+        Main.configManager = new ConfigManager();
+        if (!Main.configManager.initConfig()) {
+            error("插件配置文件初始化失败，请检查文件权限。");
+            return false;
+        }
 
-		//测试
-		RegionProtection.getRegionManager().setRegion("test", new ProtectedRegion(
-				"world",
-				new DataBlockLocation(-16, 50, -16),
-				new DataBlockLocation(16, 60, 16)
-		));
+        log("加载区域管理器...");
+        Main.regionManager = new RegionManager();
+        if (!Main.regionManager.initConfiguration()) {
+            error("区域配置文件初始化失败，请检查文件权限。");
+            return false;
+        }
 
-		return true;
-	}
+        log("加载玩家管理器...");
+        Main.playerManager = new PlayerManager();
 
-	@Override
-	public boolean isDebugging() {
-		return PluginConfig.DEBUG.get();
-	}
+        log("注册监听器...");
+        regListener(new RegionListener());
+        regListener(new SelectListener());
 
-	public static Main getInstance() {
-		return instance;
-	}
+        log("注册指令...");
+        registerCommand("RegionProtection", new RegionProtectCommands());
 
-	public static void info(String... messages) {
-		getInstance().log(messages);
-	}
+        //测试
+        RegionProtection.getRegionManager().setRegion("test", new ProtectedRegion(
+                "world",
+                new DataBlockLocation(-16, 50, -16),
+                new DataBlockLocation(16, 60, 16)
+        ));
 
-	public static void severe(String... messages) {
-		getInstance().error(messages);
-	}
+        return true;
+    }
 
-	public static void debugging(String... messages) {
-		getInstance().debug(messages);
-	}
+    @Override
+    public boolean isDebugging() {
+        return PluginConfig.DEBUG.get();
+    }
 
 }

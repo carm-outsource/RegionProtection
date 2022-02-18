@@ -9,16 +9,16 @@ import cc.carm.plugin.regionprotection.manager.RegionManager;
  */
 public class RegionProtection {
 
-	public static ConfigManager getPluginConfigManager() {
-		return Main.configManager;
-	}
+    public static ConfigManager getPluginConfigManager() {
+        return Main.configManager;
+    }
 
-	public static RegionManager getRegionManager() {
-		return Main.regionManager;
-	}
+    public static RegionManager getRegionManager() {
+        return Main.regionManager;
+    }
 
-	public static PlayerManager getPlayerManager() {
-		return Main.playerManager;
-	}
+    public static PlayerManager getPlayerManager() {
+        return Main.playerManager;
+    }
 
 }

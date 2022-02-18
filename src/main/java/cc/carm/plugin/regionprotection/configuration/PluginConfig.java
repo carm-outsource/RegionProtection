@@ -6,24 +6,24 @@ import org.bukkit.Sound;
 
 public class PluginConfig {
 
-	public static final ConfigValue<Boolean> DEBUG = new ConfigValue<>(
-			"debug", Boolean.class, false
-	);
+    public static final ConfigValue<Boolean> DEBUG = new ConfigValue<>(
+            "debug", Boolean.class, false
+    );
 
-	public static final ConfigValue<String> PERMISSION = new ConfigValue<>(
-			"permission", String.class, "RegionProtection.override"
-	);
+    public static final ConfigValue<String> PERMISSION = new ConfigValue<>(
+            "permission", String.class, "RegionProtection.override"
+    );
 
-	public static final ConfigValue<Integer> PLAY_TIME = new ConfigValue<>(
-			"play-time", Integer.class, 1440
-	);
+    public static final ConfigValue<Integer> PLAY_TIME = new ConfigValue<>(
+            "play-time", Integer.class, 1440
+    );
 
 
-	public static class Sounds {
+    public static class Sounds {
 
-		public static ConfigSound NOT_PERMITTED = new ConfigSound(
-				"sounds.not-permitted", Sound.ENTITY_VILLAGER_NO
-		);
+        public static ConfigSound NOT_PERMITTED = new ConfigSound(
+                "sounds.not-permitted", Sound.ENTITY_VILLAGER_NO
+        );
 
-	}
+    }
 }
