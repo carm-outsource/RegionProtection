@@ -13,7 +13,7 @@
 # RegionProtection
 
 [![workflow](https://github.com/CarmJos/RegionProtection/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/CarmJos/RegionProtection/actions/workflows/maven.yml)
-![Support](https://img.shields.io/badge/Minecraft-Java%201.13--Latest-green)
+![Support](https://img.shields.io/badge/Minecraft-Java%201.16--Latest-yellow)
 ![](https://visitor-badge.glitch.me/badge?page_id=RegionProtection.readme)
 
 区域保护插件，将不符合条件的玩家弹出区域，基于EasyPlugin实现。
