@@ -63,11 +63,15 @@ public class PlayerManager {
     }
 
     public boolean isTriedTimesExceeded(UUID uuid) {
-        return triedTimes.containsKey(uuid) && triedTimes.get(uuid) >= 5;
+        return triedTimes.containsKey(uuid) && triedTimes.get(uuid) > 1;
     }
 
     public boolean shouldCheck(UUID uuid) {
-        return !checkInterval.containsKey(uuid) || System.currentTimeMillis() - checkInterval.get(uuid) >= 500; // 0.5s
+        int checkTicks = PluginConfig.CHECK_INTERVAL.get();
+        if (checkTicks <= 0) return true;
+        else {
+            return !checkInterval.containsKey(uuid) || System.currentTimeMillis() - checkInterval.get(uuid) >= (50L * checkTicks); // 0.25s | 5ticks
+        }
     }
 
     public void updateCheckTime(UUID uuid) {

@@ -9,7 +9,7 @@ import cc.carm.plugin.regionprotection.listener.SelectListener;
 import cc.carm.plugin.regionprotection.manager.ConfigManager;
 import cc.carm.plugin.regionprotection.manager.PlayerManager;
 import cc.carm.plugin.regionprotection.manager.RegionManager;
-import cc.carm.plugin.regionprotection.model.DataBlockLocation;
+import cc.carm.plugin.regionprotection.model.DataXZLocation;
 import cc.carm.plugin.regionprotection.model.ProtectedRegion;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
@@ -48,7 +48,7 @@ public class Main extends EasyPlugin {
     @Override
     public boolean initialize() {
         log("加载插件配置文件...");
-        ConfigurationSerialization.registerClass(DataBlockLocation.class);
+        ConfigurationSerialization.registerClass(DataXZLocation.class);
         ConfigurationSerialization.registerClass(ProtectedRegion.class);
         Main.configManager = new ConfigManager();
         if (!Main.configManager.initConfig()) {

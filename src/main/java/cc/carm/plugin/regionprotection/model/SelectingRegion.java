@@ -7,10 +7,10 @@ import org.jetbrains.annotations.Nullable;
 public class SelectingRegion {
 
     @NotNull String world;
-    @Nullable DataBlockLocation pos1;
-    @Nullable DataBlockLocation pos2;
+    @Nullable DataXZLocation pos1;
+    @Nullable DataXZLocation pos2;
 
-    public SelectingRegion(@NotNull String world, @Nullable DataBlockLocation pos1, @Nullable DataBlockLocation pos2) {
+    public SelectingRegion(@NotNull String world, @Nullable DataXZLocation pos1, @Nullable DataXZLocation pos2) {
         this.world = world;
         this.pos1 = pos1;
         this.pos2 = pos2;
@@ -32,19 +32,19 @@ public class SelectingRegion {
         setWorld(world.getName());
     }
 
-    public @Nullable DataBlockLocation getPos1() {
+    public @Nullable DataXZLocation getPos1() {
         return pos1;
     }
 
-    public void setPos1(@NotNull DataBlockLocation pos1) {
+    public void setPos1(@NotNull DataXZLocation pos1) {
         this.pos1 = pos1;
     }
 
-    public @Nullable DataBlockLocation getPos2() {
+    public @Nullable DataXZLocation getPos2() {
         return pos2;
     }
 
-    public void setPos2(@NotNull DataBlockLocation pos2) {
+    public void setPos2(@NotNull DataXZLocation pos2) {
         this.pos2 = pos2;
     }
 

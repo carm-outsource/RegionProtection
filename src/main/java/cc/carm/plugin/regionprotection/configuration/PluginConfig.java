@@ -18,6 +18,10 @@ public class PluginConfig {
             "play-time", Integer.class, 1440
     );
 
+    public static final ConfigValue<Integer> CHECK_INTERVAL = new ConfigValue<>(
+            "check-interval", Integer.class, 5
+    );
+
 
     public static class Sounds {
 

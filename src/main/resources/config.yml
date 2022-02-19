@@ -11,5 +11,7 @@ permission: "RegionProtection.override"
 # 游玩时间，超过该时间的玩家将可以进入区域，单位：分钟
 play-time: 1440 # 24 hours
 
+check-interval: 5 # 5 ticks
+
 sounds:
   not-permitted: ENTITY_VILLAGER_NO # 进入未经允许的区域时播放的声音

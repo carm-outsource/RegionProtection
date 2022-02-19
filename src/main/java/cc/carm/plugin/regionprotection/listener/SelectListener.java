@@ -3,7 +3,7 @@ package cc.carm.plugin.regionprotection.listener;
 import cc.carm.plugin.regionprotection.RegionProtection;
 import cc.carm.plugin.regionprotection.configuration.PluginMessages;
 import cc.carm.plugin.regionprotection.manager.PlayerManager;
-import cc.carm.plugin.regionprotection.model.DataBlockLocation;
+import cc.carm.plugin.regionprotection.model.DataXZLocation;
 import cc.carm.plugin.regionprotection.model.SelectingRegion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -43,7 +43,7 @@ public class SelectListener implements Listener {
                 return;
             }
         }
-        DataBlockLocation location = new DataBlockLocation(block.getLocation());
+        DataXZLocation location = new DataXZLocation(block.getLocation());
         if (isPos1) {
             if (region.getPos1() != null && region.getPos1().equals(location)) return;
             region.setPos1(location);
