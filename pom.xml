@@ -19,17 +19,29 @@
     <description>区域保护插件，将不符合条件的玩家弹出区域，基于EasyPlugin实现。</description>
     <url>https://github.com/CarmJos/RegionProtection</url>
 
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://opensource.org/licenses/GPL-3.0</url>
+        </license>
+    </licenses>
+
     <ciManagement>
         <system>GitHub Actions</system>
         <url>https://github.com/CarmJos/RegionProtection/actions/workflows/maven.yml</url>
     </ciManagement>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/CarmJos/UltraDepository/issues</url>
+    </issueManagement>
 
     <distributionManagement>
         <downloadUrl>https://github.com/CarmJos/RegionProtection/releases</downloadUrl>
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/CarmJos/FastPickup</url>
+            <url>https://maven.pkg.github.com/CarmJos/RegionProtection</url>
         </repository>
     </distributionManagement>
 
