@@ -73,7 +73,7 @@
 ```text
 
 # RegionProtection.admin
-- 建筑魔杖的管理权限。
+- 区域保护插件的管理权限。
 
 ```
 
