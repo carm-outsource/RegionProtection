@@ -22,8 +22,8 @@
 
 - **[必须]** 插件本体基于 [Spigot-API](https://hub.spigotmc.org/stash/projects/SPIGOT) 、 [BukkitAPI](http://bukkit.org/) 实现。
 - **[自带]** 插件功能基于 [EasyPlugin](https://github.com/CarmJos/EasyPlugin) 实现。
--
-
+- **[推荐]** 授权功能基于 [LuckPerms](https://luckperms.net/) 实现。
+ 
 详细依赖列表可见 [Dependencies](https://github.com/CarmJos/RegionProtection/network/dependencies) 。
 
 ## 插件指令
