@@ -70,7 +70,7 @@
         <dependency>
             <groupId>cc.carm.lib</groupId>
             <artifactId>easyplugin-main</artifactId>
-            <version>1.5.12</version>
+            <version>1.5.13</version>
             <scope>compile</scope>
         </dependency>
 
